@@ -24,25 +24,33 @@ Unlike most other layer 3 status bar patches, tile conversion to coordinates is 
 Thankfully, <a href="https://github.com/devinacker/bsnes-plus/releases">Bsnes+ v4</a> (or higher) tile coordinate system is updated to show its position
 relative to each one of the 4 screens instead of the top-left corner of all 4 screens. The map number can be used as the &ldquo;row number/Y position&rdquo;.<br><br>
 
-To obtain the coordinate of the selected tile, run Bsnes+, and on any level, go to Tools &rightwarrow; Debugger &rightwarrow; S-PPU &rightwarrow; Tilemap Viewer and 
+To obtain the coordinate of the selected tile, run Bsnes+, and on any level, go to Tools &rightarrow; Debugger &rightarrow; S-PPU &rightarrow; Tilemap Viewer and 
 select &ldquo;3&rdquo; on the BG layer, and enable &ldquo;Auto Update&rdquo;. Because the status bar writing is timing-based when drawing the screen, there is
 a chance that the tilemap will only display layer 3 non-status bar (layer 3 backgrounds, for example) as the debugger only displayed it during non-status bar write,
 therefore a breakpoint and &ldquo;stepping&rdquo; around $0082A4 will help. After that, select any status bar tile, you should get the map number (Y position for this table)
 and the first number in &ldquo;Position&rdquo; (X position for this table):<br>
 <a href="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"><img width="256" src="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"></a><br>
-Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&gt;)</kbd>.<br><br>
+Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&gt;)</kbd> (including the quotes) with no leading zeroes.<br><br>
 
-<kbd>!freeram = $<input type="text" list="StatusBarRAMTileList" id="FreeramRamBar" value ="7FB600" maxlength="6" onchange="Calculate()"></kbd><button type="button" onclick="IncreaseDecreaseRAM(1)">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1)">-</button>
-<button onclick="Reset()">Reset</button>
+<kbd>!status_tile = $<input type="text" list="StatusBarRAMTileList" id="RAM_TTTTTTTT_Addr" value ="7FB600" maxlength="6" onchange="Calculate()"></kbd><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_TTTTTTTT_Addr')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_TTTTTTTT_Addr')">-</button>
 <datalist id="StatusBarRAMTileList">
 <option value="7FB600">Default RAM address</option>
 <option value="40C700">Default RAM address (SA-1)</option>
-</datalist>
+</datalist><br>
+<kbd>!status_prop = $<input type="text" list="StatusBarRAMPropertiesList" id="RAM_YXPCCCTT_Addr" value ="7FB680" maxlength="6" onchange="Calculate()"></kbd></kbd><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_YXPCCCTT_Addr')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_YXPCCCTT_Addr')">-</button>
+<datalist id="StatusBarRAMPropertiesList">
+<option value="7FB680">Default RAM address</option>
+<option value="40C780">Default RAM address (SA-1)</option>
+</datalist><br>
+
+<button onclick="Reset()">Reset</button>
+
+
 <body onload="Calculate()">
 <span id="Output"></span>
 <script>
-	function IncreaseDecreaseRAM(ChangeBy) {
-		document.getElementById("FreeramRamBar").value = clamp((parseInt(document.getElementById("FreeramRamBar").value, 16) + parseInt(ChangeBy, 10)), 0, parseInt("FFFFFF", 16)).toString(16).toUpperCase()
+	function IncreaseDecreaseRAM(ChangeBy, WhatInput) {
+		document.getElementById(WhatInput).value = clamp((parseInt(document.getElementById(WhatInput).value, 16) + parseInt(ChangeBy, 10)), 0, parseInt("FFFFFF", 16)).toString(16).toUpperCase()
 		Calculate()
 	}
 	function clamp(num, min, max) {
@@ -52,7 +60,8 @@ Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&
 		return num <= min ? min : num >= max ? max : num;
 	}
 	function Reset() {
-		document.getElementById("FreeramRamBar").value = "7FB600"
+		document.getElementById("RAM_TTTTTTTT_Addr").value = "7FB600"
+		document.getElementById("RAM_YXPCCCTT_Addr").value = "7FB680"
 		Calculate()
 	}
 	function Calculate() {
@@ -60,50 +69,36 @@ Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&
 			document.getElementById("Output").innerHTML = ""
 			var Output = ""
 		//DisplayOutput
-			var FreeramAddress = clamp(parseInt(document.getElementById("FreeramRamBar").value, 16), 0, parseInt("FFFFFF", 16))
-			document.getElementById("FreeramRamBar").value = (FreeramAddress).toString(16).toUpperCase()
+			var RAM_TileNumbAddr = clamp(parseInt(document.getElementById("RAM_TTTTTTTT_Addr").value, 16), 0, parseInt("FFFFFF", 16))
+			document.getElementById("RAM_TTTTTTTT_Addr").value = (RAM_TileNumbAddr).toString(16).toUpperCase()
+			var RAM_TilePropAddr = clamp(parseInt(document.getElementById("RAM_YXPCCCTT_Addr").value, 16), 0, parseInt("FFFFFF", 16))
+			document.getElementById("RAM_YXPCCCTT_Addr").value = (RAM_TilePropAddr).toString(16).toUpperCase()
 			
 			Output += "<table>"
-			Output += "<tr><th colspan='2'>Memory ranges</th></tr>"
-			Output += "<tr>"
-			Output += "<td>Palette data:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress).toString(16).toUpperCase() + "</kbd> to <kbd>$" + (FreeramAddress + 63).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l1y_end</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 64).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 65).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l1y_mirror</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 66).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 67).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l1y_mirror_alt</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 68).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 69).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l2y_mirror</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 70).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 71).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l2y_mirror_alt</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 72).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 73).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l3_line1</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 74).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 75).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!l3_line2</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 76).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 77).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			Output += "<tr>"
-			Output += "<td><kbd>!hdmatbl</kbd>:</td>"
-			Output += "<td><kbd>$" + (FreeramAddress + 78).toString(16).toUpperCase() + "</kbd> to <kbd>$" +  (FreeramAddress + 79).toString(16).toUpperCase() + "</kbd></td>"
-			Output += "</tr>"
-			
-			
+			Output += "<tr><td>Tile number address range:</td><td><kbd>$" + RAM_TileNumbAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TileNumbAddr+(32*4)-1).toString(16).toUpperCase() + "</td></tr>"
+			Output += "<tr><td>Tile properties address range:</td><td><kbd>$" + RAM_TilePropAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TilePropAddr+(32*4)-1).toString(16).toUpperCase() + "</td></tr>"
 			Output += "</table>"
+			
+			var TileCount = 0
+			var Xpos = 0
+			var YPos = 0
+			Output += "<table>"
+			Output += "<tr><th>Tile number and coordinates</th><th>Tile number (TTTTTTTT)</th><th>Tile properties (YXPCCCTT)</th></tr>"
+			while (TileCount < (32*4)) {
+				Xpos = (TileCount % 32)
+				YPos = Math.floor(TileCount/32)
+				if (Xpos == 0) {
+					Output += "<tr><th colspan='3'>Map/Screen " + YPos.toString(10) + "</th></tr>"
+				}
+				Output += "<tr>"
+				Output += "<td><kbd>" + TileCount.toString(10) + "</kbd> (<kbd>$" + TileCount.toString(16).toUpperCase() + "</kbd>), position: <kbd>(" + Xpos.toString(10) + "," + YPos.toString(10) + ")</kbd>" + " (<kbd>($" + Xpos.toString(16).toUpperCase() + ",$" + YPos.toString(16).toUpperCase() + ")</kbd>)</td>"
+				Output += "<td><kbd>$" + (RAM_TileNumbAddr + TileCount).toString(16).toUpperCase() + "</kbd></td>"
+				Output += "<td><kbd>$" + (RAM_TilePropAddr + TileCount).toString(16).toUpperCase() + "</kbd></td>"
+				Output += "</tr>"
+				TileCount++
+			}
+			Output += "</table>"
+
 			document.getElementById("Output").innerHTML = Output
 	}
 

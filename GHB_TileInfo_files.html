@@ -32,6 +32,8 @@ and the first number in &ldquo;Position&rdquo; (X position for this table):<br>
 <a href="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"><img width="256" src="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"></a><br>
 Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&gt;)</kbd> (including the quotes) with no leading zeroes.<br><br>
 
+The following is two address, enter the RAM address presented on the Asar console window (the starting address, not ending) if you have edited the RAM addresses or use SA-1.<br><br>
+
 <kbd>!status_tile = $<input type="text" list="StatusBarRAMTileList" id="RAM_TTTTTTTT_Addr" value ="7FB600" maxlength="6" onchange="Calculate()"></kbd><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_TTTTTTTT_Addr')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_TTTTTTTT_Addr')">-</button>
 <datalist id="StatusBarRAMTileList">
 <option value="7FB600">Default RAM address</option>

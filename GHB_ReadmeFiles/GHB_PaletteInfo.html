@@ -41,7 +41,7 @@ When you select any color, thankfully, the debugger displays what color by &ldqu
 <br><br>
 
 
-<kbd>!status_palette = $</kbd><input type="text" list="PaletteList" id="RAM_paletteData" value ="7FB500" maxlength="6" onchange="Calculate()"><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_paletteData')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_paletteData')">-</button>
+<kbd>!status_palette = $</kbd><input type="text" list="PaletteList" id="RAM_paletteData" value ="7FB500" maxlength="6" onchange="Calculate()"><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_paletteData')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_paletteData')">-</button><button type="button" onclick="IncreaseDecreaseRAM(2, 'RAM_paletteData')">+2</button><button type="button" onclick="IncreaseDecreaseRAM(-2, 'RAM_paletteData')">-2</button>
 <datalist id="PaletteList">
 <option value="7FB500">Default RAM address</option>
 <option value="40C600">Default RAM address (SA-1)</option>
@@ -74,6 +74,7 @@ When you select any color, thankfully, the debugger displays what color by &ldqu
 			var PaletteAddress = clamp(parseInt(document.getElementById("RAM_paletteData").value, 16), 0, parseInt("FFFFFF", 16))
 			document.getElementById("RAM_paletteData").value = PaletteAddress.toString(16).toUpperCase()
 			
+			Output += "Entire RAM range: <kbd>$" + PaletteAddress.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+63).toString(16).toUpperCase() + "</kbd> (<kbd>!status_palette</kbd> to <kbd>!status_palette+$3F</kbd>)<br><br>"
 			
 			var IndexCount = 0
 			Output += "<table>"

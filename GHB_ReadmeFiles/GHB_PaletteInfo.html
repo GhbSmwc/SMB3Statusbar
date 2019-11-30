@@ -27,10 +27,10 @@ Information is better displayed as visual than mere text:
 <img src="PaletteInfo.png"><br><br>
 
 <h2>How color data are stored</h2>
-Each color (or each &ldquo;square&rdquo; on the palette editor) occupies 2 bytes, stored in 16-bit binary as <kbd>0bbbbbgggggrrrrr</kbd> (r g and b means the red, green and blue colors,
+Each color (or each &ldquo;square&rdquo; on the palette editor) occupies 2 bytes, stored in 16-bit binary as [<kbd>0bbbbbgggggrrrrr</kbd>] (r g and b means the red, green and blue colors,
 each ranging from $00-$1F (%00000-%11111) inclusive, the higher the number of any of the 3 groups, the &ldquo;brighter&rdquo; towards the color, up to white when all 3 are maxed),
 Therefore, each palette groups containing 4 colors occupies a total of 8 bytes. Remember, the SNES have multi-bytes stored as little-endian, meaning
-<kbd>0bbbbbgggggrrrrr</kbd> is stored as [<kbd>gggrrrrr, 0bbbbbgg</kbd>] in memory.<br><br>
+[<kbd>0bbbbbgggggrrrrr</kbd>] is stored as [<kbd>gggrrrrr, 0bbbbbgg</kbd>] in memory.<br><br>
 
 I've programmed a javascript below that makes it easier to find the RAM of a given color palette. Again, using <a href="https://github.com/devinacker/bsnes-plus/releases">Bsnes+</a>, this time going to
 debugger &rightarrow; S-PPU &rightarrow; Palette Viewer. Also again that the palette is loaded during processing the status bar, so a possible chance that the debugger won't show the status bar palette, so enable &ldquo;Auto Update&rdquo;
@@ -78,7 +78,7 @@ When you select any color, thankfully, the debugger displays what color by &ldqu
 			
 			var IndexCount = 0
 			Output += "<table>"
-			Output += "<tr><th>What palette group</th><th>Index</th><th>Palette RAM</th><th>Location offset in pallette .bin file</th></tr>"
+			Output += "<tr><th>What palette group</th><th>Index</th><th>Palette RAM</th><th>&ldquo;pal.bin&rdquo; Location offset</th></tr>"
 			while (IndexCount < 32) {
 				Output += "<tr>"
 				if ((IndexCount % 4) == 0) {
@@ -86,7 +86,7 @@ When you select any color, thankfully, the debugger displays what color by &ldqu
 				}
 				Output += "<td>Index: <kbd>" + IndexCount.toString(10) + "</kbd> (<kbd>$" + IndexCount.toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "<td><kbd>$" + (PaletteAddress+(IndexCount*2)).toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+(IndexCount*2)+1).toString(16).toUpperCase() +"</kbd></td>"
-				Output += "<td><kbd>" + (IndexCount*2).toString(10) + "</kbd> to <kbd>" + ((IndexCount*2)+1).toString(10) + "</kbd> (<kbd>$" + (IndexCount*2).toString(16).toUpperCase() + "</kbd> to <kbd>$" + ((IndexCount*2)+1).toString(16).toUpperCase() + ")</td>"
+				Output += "<td><kbd>" + (IndexCount*2).toString(10) + "</kbd> to <kbd>" + ((IndexCount*2)+1).toString(10) + "</kbd> (<kbd>$" + (IndexCount*2).toString(16).toUpperCase() + "</kbd> to <kbd>$" + ((IndexCount*2)+1).toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "</tr>"
 				IndexCount++
 			}

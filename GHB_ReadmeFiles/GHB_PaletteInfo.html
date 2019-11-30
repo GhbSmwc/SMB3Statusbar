@@ -77,7 +77,7 @@ from the first byte), make use of that.<br><br>
 			var PaletteAddress = clamp(parseInt(document.getElementById("RAM_paletteData").value, 16), 0, parseInt("FFFFFF", 16))
 			document.getElementById("RAM_paletteData").value = PaletteAddress.toString(16).toUpperCase()
 			
-			Output += "Entire RAM range: <kbd>$" + PaletteAddress.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+63).toString(16).toUpperCase() + "</kbd> (<kbd>!status_palette</kbd> to <kbd>!status_palette+$3F</kbd>)<br><br>"
+			Output += "Entire palette RAM range: <kbd>$" + PaletteAddress.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+63).toString(16).toUpperCase() + "</kbd> (<kbd>!status_palette</kbd> to <kbd>!status_palette+$3F</kbd>)<br><br>"
 			
 			var IndexCount = 0
 			Output += "<table>"

@@ -102,10 +102,10 @@ NOTE: WHETHER YOU USE LEVELHEIGHT.ASM OR NOT, DESIGN YOUR LEVELS WITH THE SHORTE
 ;;;;;;; IMPORTANT RAM ADDRESSES ;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-GHB's note: the new RAM addresses info are outdated, marked with "*" means
-it no longer works (they're outdated). RAM addresses are displayed on the asar
-console window during patching, use that instead when designing custom info
-display (such as counters, graphical bars, etc.)
+[2019/11/30] GHB's note: the new RAM addresses info are outdated, marked with
+"*" means it no longer works (they're outdated). RAM addresses are displayed
+on the asar console window during patching, use that instead when designing
+custom info display (such as counters, graphical bars, etc.)
 
 $0C00-$0C7F holds the status bar tiles*
 	$0C00-$0C1F = 1st row

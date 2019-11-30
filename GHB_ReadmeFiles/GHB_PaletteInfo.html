@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<style>
+			html {
+			background-color: white;
+			color: black;
+			font-family: sans-serif;
+			}
+			
+			table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			}
+			
+			span.NoLineBreak {
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+<a href="../GHB_Readme.html#PaletteData">back</a>
+<h1>Palette documentation</h1>
+You probably be wondering, where does the <kbd>CCC</kbd> bits in <kbd>YXPCCCTT</kbd> point to what color in the palette editor? Well, the <kbd>CCC</kbd> refers to <b>what arrays of color</b>
+on the palette editor, numbered from 0-7 inclusive. On a 2BPP (2 bits per pixel) format (which the status bar graphic uses), each tile possess 4 colors, and each color occupies 2 bytes, stored in binary
+as <kbd>0bbbbbgggggrrrrr</kbd> (r g and b means the red, green and blue colors, each ranging from $00-$1F inclusive). Information is better displayed as visual than mere text:
+<img src="PaletteInfo.png">

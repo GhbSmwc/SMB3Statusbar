@@ -36,6 +36,9 @@ Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&
 The following is two address, enter the RAM address presented on the Asar console window (the starting address, of <b>all tiles</b>, not ending) if you have edited the RAM addresses or use SA-1.
 I made this JS table-er to make it easy to locate what RAM of a given tile without using a calculator.<br><br>
 
+To edit the default tile and properties, they are stored in <kbd>smb3_status_map.bin</kbd>. NOTE: unlike the patch's data format-- which is stored as: [<kbd>TTTTTTTT (tile 0), TTTTTTTT (tile 1), ...</kbd>] (seperate RAM table for properties:
+[<kbd>YXPCCCTT (tile 0), YXPCCCTT (tile 1), ...</kbd>] ), each byte in the .bin file is rather stored as [<kbd>TTTTTTTT (tile 0), YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>].<br><br>
+
 <kbd>!status_tile = $<input type="text" list="StatusBarRAMTileList" id="RAM_TTTTTTTT_Addr" value ="7FB600" maxlength="6" onchange="Calculate()"></kbd><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_TTTTTTTT_Addr')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_TTTTTTTT_Addr')">-</button>
 <datalist id="StatusBarRAMTileList">
 <option value="7FB600">Default RAM address</option>
@@ -92,7 +95,7 @@ I made this JS table-er to make it easy to locate what RAM of a given tile witho
 			var Xpos = 0
 			var YPos = 0
 			Output += "<table>"
-			Output += "<tr><th>Tile number and coordinates</th><th>Tile number (TTTTTTTT)</th><th>Tile properties (YXPCCCTT)</th><th>&ldquo;map.bin&rdquo; tile number location offset</th><th>&ldquo;map.bin&rdquo; tile properties location offset</th></tr>"
+			Output += "<tr><th>Tile number and coordinates</th><th>Tile number (TTTTTTTT)</th><th>Tile properties (YXPCCCTT)</th><th>&ldquo;smb3_status_map.bin&rdquo; tile number location offset</th><th>&ldquo;smb3_status_map.bin&rdquo; tile properties location offset</th></tr>"
 			while (TileCount < (32*4)) {
 				Xpos = (TileCount % 32)
 				YPos = Math.floor(TileCount/32)

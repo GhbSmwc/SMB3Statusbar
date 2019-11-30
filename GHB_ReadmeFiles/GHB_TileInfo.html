@@ -37,7 +37,8 @@ The following is two address, enter the RAM address presented on the Asar consol
 I made this JS table-er to make it easy to locate what RAM of a given tile without using a calculator.<br><br>
 
 To edit the default tile and properties, they are stored in <kbd>smb3_status_map.bin</kbd>. NOTE: unlike the patch's data format-- which is stored as: [<kbd>TTTTTTTT (tile 0), TTTTTTTT (tile 1), ...</kbd>] (seperate RAM table for properties:
-[<kbd>YXPCCCTT (tile 0), YXPCCCTT (tile 1), ...</kbd>] ), each byte in the .bin file is rather stored as [<kbd>TTTTTTTT (tile 0), YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>].<br><br>
+[<kbd>YXPCCCTT (tile 0), YXPCCCTT (tile 1), ...</kbd>] ), each byte in the .bin file is rather stored as [<kbd>TTTTTTTT (tile 0), YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>]. You'll need a hex editor
+to see and modify that. Most hex editors display the offset (an &ldquo;address&rdquo; from the first byte), make use of that.<br><br>
 
 <kbd>!status_tile = $<input type="text" list="StatusBarRAMTileList" id="RAM_TTTTTTTT_Addr" value ="7FB600" maxlength="6" onchange="Calculate()"></kbd><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_TTTTTTTT_Addr')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_TTTTTTTT_Addr')">-</button>
 <datalist id="StatusBarRAMTileList">

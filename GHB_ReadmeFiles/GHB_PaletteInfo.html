@@ -40,6 +40,9 @@ When you select any color, thankfully, the debugger displays what color by &ldqu
 <img src="PaletteIndex.png">
 <br><br>
 
+To edit the default palette, they are stored in <kbd>smb3_status_pal.bin</kbd>; data there are stored the same way how RAM stored the palette. Open that up with a hex editor to see and modify that. Most hex editors display the offset (an &ldquo;address&rdquo;
+from the first byte), make use of that.<br><br>
+
 
 <kbd>!status_palette = $</kbd><input type="text" list="PaletteList" id="RAM_paletteData" value ="7FB500" maxlength="6" onchange="Calculate()"><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_paletteData')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_paletteData')">-</button><button type="button" onclick="IncreaseDecreaseRAM(2, 'RAM_paletteData')">+2</button><button type="button" onclick="IncreaseDecreaseRAM(-2, 'RAM_paletteData')">-2</button>
 <datalist id="PaletteList">

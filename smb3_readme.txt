@@ -102,12 +102,17 @@ NOTE: WHETHER YOU USE LEVELHEIGHT.ASM OR NOT, DESIGN YOUR LEVELS WITH THE SHORTE
 ;;;;;;; IMPORTANT RAM ADDRESSES ;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-$0C00-$0C7F holds the status bar tiles
+GHB's note: the new RAM addresses info are outdated, marked with "*" means
+it no longer works (they're outdated). RAM addresses are displayed on the asar
+console window during patching, use that instead when designing custom info
+display (such as counters, graphical bars, etc.)
+
+$0C00-$0C7F holds the status bar tiles*
 	$0C00-$0C1F = 1st row
 	$0C20-$0C3F = 2nd row
 	$0C40-$0C5F = 3rd row
 	$0C60-$0C7F = 4th row
-$0C80-$0CFF holds the status bar tile properties (YXPCCCTT)
+$0C80-$0CFF holds the status bar tile properties (YXPCCCTT)*
 	$0C80-$0C9F = 1st row
 	$0CA0-$0CBF = 2nd row
 	$0CC0-$0CDF = 3rd row
@@ -124,7 +129,7 @@ $0EFC-$0F2F holds the status bar OAM
 	$0F10-$0F2F is the high table. dont touch it (except the last 8 bits, which handle
 	the above 4 extra sprites, and the 2 high bits of $0F2E handling the item box.
 	by default, the size bit is set (16x16) and the high X position is clear)
-$0D00-$0D3F holds the status bar palette
+$0D00-$0D3F holds the status bar palette*
 	$0D00-$0D07 = palette 0
 	$0D08-$0D0F = palette 1
 	$0D10-$0D17 = palette 2

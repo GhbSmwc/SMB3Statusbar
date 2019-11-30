@@ -29,7 +29,7 @@ select &ldquo;3&rdquo; on the BG layer, and enable &ldquo;Auto Update&rdquo;. Be
 a chance that the tilemap will only display layer 3 non-status bar (layer 3 backgrounds, for example) as the debugger only displayed it during non-status bar write,
 therefore a breakpoint and &ldquo;stepping&rdquo; around $0082A4 will help. After that, select any status bar tile, you should get the map number (Y position for this table)
 and the first number in &ldquo;Position&rdquo; (X position for this table):<br>
-<a href="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"><img width="256" src="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"></a><br>
+<a href="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png" target="_blank"><img width="256" src="GHB_TileInfo_files/SMB3_Statusbar_TileCoord.png"></a><br>
 Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&gt;)</kbd> (including the quotes) with no leading zeroes.<br><br>
 
 The following is two address, enter the RAM address presented on the Asar console window (the starting address, not ending) if you have edited the RAM addresses or use SA-1.<br><br>
@@ -45,12 +45,17 @@ The following is two address, enter the RAM address presented on the Asar consol
 <option value="40C780">Default RAM address (SA-1)</option>
 </datalist><br>
 
+<button onclick="AutoFillSa1()">Autofill SA-1 addresses</button>
 <button onclick="Reset()">Reset</button>
-
-
+<hr>
 <body onload="Calculate()">
 <span id="Output"></span>
 <script>
+	function AutoFillSa1() {
+		document.getElementById("RAM_TTTTTTTT_Addr").value = "40C700"
+		document.getElementById("RAM_YXPCCCTT_Addr").value = "40C780"
+		Calculate()
+	}
 	function IncreaseDecreaseRAM(ChangeBy, WhatInput) {
 		document.getElementById(WhatInput).value = clamp((parseInt(document.getElementById(WhatInput).value, 16) + parseInt(ChangeBy, 10)), 0, parseInt("FFFFFF", 16)).toString(16).toUpperCase()
 		Calculate()
@@ -79,7 +84,7 @@ The following is two address, enter the RAM address presented on the Asar consol
 			Output += "<table>"
 			Output += "<tr><td>Tile number address range:</td><td><kbd>$" + RAM_TileNumbAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TileNumbAddr+(32*4)-1).toString(16).toUpperCase() + "</td></tr>"
 			Output += "<tr><td>Tile properties address range:</td><td><kbd>$" + RAM_TilePropAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TilePropAddr+(32*4)-1).toString(16).toUpperCase() + "</td></tr>"
-			Output += "</table>"
+			Output += "</table><br>"
 			
 			var TileCount = 0
 			var Xpos = 0

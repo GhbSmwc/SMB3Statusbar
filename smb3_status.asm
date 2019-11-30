@@ -55,7 +55,7 @@ incsrc smb3_status_defines.asm
 !hdmatbl = !freeram+$40+14
 
 
-
+;This displays the RAM address on the Asar console window.
 print ""
 print "RAM address ranges:"
 print "l1y_end:             $", hex(!l1y_end), " to $", hex(!l1y_end+1)        
@@ -68,8 +68,30 @@ print "l3_line2:            $", hex(!l3_line2), " to $", hex(!l3_line2+1)
 print "hdmatbl:             $", hex(!hdmatbl), " to $", hex(!hdmatbl+(hdmatbl_end-hdmatbl-1))
 print ""
 print "status_tile:         $", hex(!status_tile), " to $", hex(!status_tile+$7F)
+print "-Tile number ranges (32 bytes each):"
+print "--Row 0:              $", hex(!status_tile+$00), " to $", hex(!status_tile+$1F)
+print "--Row 1:              $", hex(!status_tile+$20), " to $", hex(!status_tile+$3F)
+print "--Row 2:              $", hex(!status_tile+$40), " to $", hex(!status_tile+$5F)
+print "--Row 3:              $", hex(!status_tile+$60), " to $", hex(!status_tile+$7F)
+print ""
 print "status_prop:         $", hex(!status_prop), " to $", hex(!status_prop+$7F)
+print "-Tile properties ranges (32 bytes each):"
+print "--Row 0:              $", hex(!status_prop+$00), " to $", hex(!status_prop+$1F)
+print "--Row 1:              $", hex(!status_prop+$20), " to $", hex(!status_prop+$3F)
+print "--Row 2:              $", hex(!status_prop+$40), " to $", hex(!status_prop+$5F)
+print "--Row 3:              $", hex(!status_prop+$60), " to $", hex(!status_prop+$7F)
+print ""
 print "status_palette:      $", hex(!status_palette), " to $", hex(!status_palette+$3F)
+print "-Palette ranges (8 bytes each):"
+print "--Palette 0:          $", hex(!status_palette+$00), " to $", hex(!status_palette+$07)
+print "--Palette 1:          $", hex(!status_palette+$08), " to $", hex(!status_palette+$0F)
+print "--Palette 2:          $", hex(!status_palette+$10), " to $", hex(!status_palette+$17)
+print "--Palette 3:          $", hex(!status_palette+$18), " to $", hex(!status_palette+$1F)
+print "--Palette 4:          $", hex(!status_palette+$20), " to $", hex(!status_palette+$27)
+print "--Palette 5:          $", hex(!status_palette+$28), " to $", hex(!status_palette+$2F)
+print "--Palette 6:          $", hex(!status_palette+$30), " to $", hex(!status_palette+$37)
+print "--Palette 7:          $", hex(!status_palette+$38), " to $", hex(!status_palette+$3F)
+print ""
 print "status_OAM:          $", hex(!status_OAM), " to $", hex(!status_OAM+3)
 print ""
 

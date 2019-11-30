@@ -69,7 +69,7 @@ print "hdmatbl:             $", hex(!hdmatbl), " to $", hex(!hdmatbl+(hdmatbl_en
 print ""
 print "status_tile:         $", hex(!status_tile), " to $", hex(!status_tile+$7F)
 print "status_prop:         $", hex(!status_prop), " to $", hex(!status_prop+$7F)
-print "status_palette:      $", hex(!status_palette), " to $", hex(!status_palette+$63)
+print "status_palette:      $", hex(!status_palette), " to $", hex(!status_palette+$3F)
 print "status_OAM:          $", hex(!status_OAM), " to $", hex(!status_OAM+3)
 print ""
 

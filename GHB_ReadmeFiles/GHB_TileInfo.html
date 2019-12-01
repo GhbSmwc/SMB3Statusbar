@@ -88,8 +88,8 @@ to see and modify that. Most hex editors display the offset (an &ldquo;address&r
 			document.getElementById("RAM_YXPCCCTT_Addr").value = (RAM_TilePropAddr).toString(16).toUpperCase()
 			
 			Output += "<table>"
-			Output += "<tr><td>Tile number RAM address range:</td><td><kbd>$" + RAM_TileNumbAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TileNumbAddr+(32*4)-1).toString(16).toUpperCase() + "</td></tr>"
-			Output += "<tr><td>Tile properties RAM address range:</td><td><kbd>$" + RAM_TilePropAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TilePropAddr+(32*4)-1).toString(16).toUpperCase() + "</td></tr>"
+			Output += "<tr><td>Tile number RAM address range:</td><td><kbd>$" + RAM_TileNumbAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TileNumbAddr+(32*4)-1).toString(16).toUpperCase() + "</kbd> (<kbd>!status_tile</kbd> to <kbd>!status_tile+$7F</kbd>)</td></tr>"
+			Output += "<tr><td>Tile properties RAM address range:</td><td><kbd>$" + RAM_TilePropAddr.toString(16).toUpperCase() + "</kbd> to <kbd>$" + (RAM_TilePropAddr+(32*4)-1).toString(16).toUpperCase() + "</kbd> (<kbd>!status_prop</kbd> to <kbd>!status_prop+$7F</kbd>)</td></tr>"
 			Output += "</table><br>"
 			
 			var TileCount = 0

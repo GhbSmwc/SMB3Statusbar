@@ -18,13 +18,52 @@
 		</style>
 	</head>
 	<a href="../GHB_Readme.html#TileData">back</a>
-<h1>GHB's tilemap info</h1>
+<h1>GHB's tilemap documentation</h1>
 Unlike most other layer 3 status bar patches, tile conversion to coordinates is completely different. Instead of having all the tiles all together in the tilemap, each horizontal lines of 8x8 tiles are split into each
 4 &ldquo;screens&rdquo; of the tilemap:<br>
 <a href="SMB3_Statusbar_Tilemap.png" target="_blank"><img width="256" src="SMB3_Statusbar_Tilemap.png"></a><br>
 Thankfully, <a href="https://github.com/devinacker/bsnes-plus/releases">Bsnes+ v4</a> (or higher) tile coordinate system is updated to show its position
 relative to each one of the 4 screens instead of the top-left corner of all 4 screens. The map number can be used as the &ldquo;row number/Y position&rdquo;.<br><br>
 
+<h2>How tile data are stored</h2>
+Each 8x8 tile contains 2 bytes of information, the &ldquo;tile number&rdquo; (TTTTTTTT) and the &ldquo;tile properties&rdquo;:
+<ul>
+<li>Tile Number: Refers to what tile to use that is stored in the tile S-PPU. This can be seen by using YYCHR on <kbd>smb3_status_gfx.bin</kbd> and looking at the status bar at the bottom labeled
+&ldquo;Pattern&rdquo;:
+<img src="YYCHR_TileNumb.png"></li>
+<li>Tile Properties: Attributes of the tile. Stored in binary as follows:
+<ul>
+<li><kbd><u>Y</u>XPCCCTT</kbd>: Y-flip (<kbd>%0</kbd> = no,<kbd>%1</kbd> = yes)</li>
+<li><kbd>Y<u>X</u>PCCCTT</kbd>: X-flip (<kbd>%0</kbd> = no, <kbd>%1</kbd> = yes)</li>
+<li><kbd>YX<u>P</u>CCCTT</kbd>: Priority (<kbd>%0</kbd> = behind things, <kbd>%1</kbd> = in front of things)</li>
+<li><kbd>YXP<u>CCC</u>TT</kbd>: Palette:
+<ul>
+<li><kbd>%000</kbd>: Palette 0</li>
+<li><kbd>%001</kbd>: Palette 1</li>
+<li><kbd>%010</kbd>: Palette 2</li>
+<li><kbd>%011</kbd>: Palette 3</li>
+<li><kbd>%100</kbd>: Palette 4</li>
+<li><kbd>%101</kbd>: Palette 5</li>
+<li><kbd>%110</kbd>: Palette 6</li>
+<li><kbd>%111</kbd>: Palette 7</li><br>
+</ul>
+See <a href="GHB_PaletteInfo.html#PaletteSelection">here</a> for more info.</li><br><br>
+<li><kbd>YXPCCC<u>TT</u></kbd>: Page number (akin to LM when going to Overworld Editor &rightarrow; File &rightarrow; Layer 3 Level &rightarrow; Load layer 3 of Level &rightarrow;
+Open &quot;8x8 Overworld tile selector&quot; Window and pressing up/down on the arrow keys):
+<ul>
+<li><kbd>%00</kbd>: Page 0 (you most likely only use this page)</li>
+<li><kbd>%01</kbd>: Page 1</li>
+<li><kbd>%10</kbd>: Page 2</li>
+<li><kbd>%11</kbd>: Page 3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+Unlike the <a href="https://www.smwcentral.net/?p=section&a=details&id=19247"><i>Super Status Bar</i></a> or <a href="https://www.smwcentral.net/?p=section&a=details&id=19297"><i>Overworld Border plus</i></a> patch, the tile number and properties are
+stored in RAM in separate tables instead of each tile having the 2 bytes placed together (this patch's format: tile number table: [<kbd>TTTTTTTT (tile 0), TTTTTTTT (tile 1), ...</kbd>],
+Tile properties table: [<kbd>YXPCCCTT (tile 0), YXPCCCTT (tile 1), ...</kbd>]).
+<h2>Locating tiles</h2>
 To obtain the coordinate of the selected tile, run Bsnes+, and on any level, go to Tools &rightarrow; Debugger &rightarrow; S-PPU &rightarrow; Tilemap Viewer and 
 select &ldquo;3&rdquo; on the BG layer, and enable &ldquo;Auto Update&rdquo;. Because the status bar writing is timing-based when drawing the screen, there is
 a chance that the tilemap will only display layer 3 non-status bar (layer 3 backgrounds, for example) as the debugger only displayed it during non-status bar write,
@@ -36,9 +75,9 @@ Then on this HTML file, CTRL+F and enter <kbd>(&lt;X_position&gt;,&lt;MapNumber&
 The following is two address, enter the RAM address presented on the Asar console window (the starting address, of <b>all tiles</b>, not ending) if you have edited the RAM addresses or use SA-1.
 I made this JS table-er to make it easy to locate what RAM of a given tile without using a calculator.<br><br>
 
-To edit the default tile and properties, they are stored in <kbd>smb3_status_map.bin</kbd>. NOTE: unlike the patch's data format-- which is stored as: [<kbd>TTTTTTTT (tile 0), TTTTTTTT (tile 1), ...</kbd>] (seperate RAM table for properties:
-[<kbd>YXPCCCTT (tile 0), YXPCCCTT (tile 1), ...</kbd>] ), each byte in the .bin file is rather stored as [<kbd>TTTTTTTT (tile 0), YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>]. You'll need a hex editor
-to see and modify that. Most hex editors display the offset (an &ldquo;address&rdquo; from the first byte), make use of that.<br><br>
+To edit the default tile and properties, they are stored in <kbd>smb3_status_map.bin</kbd>. NOTE: default tile data are stored the same format as the SSB and OWB+ patch (those patches format: [<kbd>TTTTTTTT (tile 0),
+YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>], unlike how the RAM format this patch uses. You'll need a hex editor to see and modify that. Most hex editors display the offset (an
+&ldquo;address&rdquo; from the first byte), make use of that.<br><br>
 
 <kbd>!status_tile = $<input type="text" list="StatusBarRAMTileList" id="RAM_TTTTTTTT_Addr" value ="7FB600" maxlength="6" onchange="Calculate()"></kbd><button type="button" onclick="IncreaseDecreaseRAM(1, 'RAM_TTTTTTTT_Addr')">+</button><button type="button" onclick="IncreaseDecreaseRAM(-1, 'RAM_TTTTTTTT_Addr')">-</button>
 <datalist id="StatusBarRAMTileList">

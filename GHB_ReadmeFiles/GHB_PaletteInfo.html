@@ -19,7 +19,7 @@
 	</head>
 <a href="../GHB_Readme.html#PaletteData">back</a>
 <h1>Palette documentation</h1>
-<h2>Palette selection from the tile properties</h2>
+<h2 id="PaletteSelection">Palette selection from the tile properties</h2>
 You probably be wondering, where does the <kbd>CCC</kbd> bits in <kbd>YXPCCCTT</kbd> point to what color in the palette editor? Well, the <kbd>CCC</kbd> refers to <b>what groups of color</b>
 on the palette editor, numbered from 0-7 inclusive. On a 2BPP (2 bits per pixel) format (which the status bar graphic uses), each 8x8 tile possess 4 colors (with the first of the 4 being the
 transparent).
@@ -27,10 +27,10 @@ Information is better displayed as visual than mere text:
 <img src="PaletteInfo.png"><br><br>
 
 <h2>How color data are stored</h2>
-Each color (or each &ldquo;square&rdquo; on the palette editor) occupies 2 bytes, stored in 16-bit binary as [<kbd>0bbbbbgggggrrrrr</kbd>] (r g and b means the red, green and blue colors,
+Each color (or each &ldquo;square&rdquo; on the palette editor) occupies 2 bytes, stored in 16-bit binary as [<kbd>%0bbbbbgggggrrrrr</kbd>] (r g and b means the red, green and blue colors,
 each ranging from $00-$1F (%00000-%11111) inclusive, the higher the number of any of the 3 groups, the &ldquo;brighter&rdquo; towards the color, up to white when all 3 are maxed),
 Therefore, each palette groups containing 4 colors occupies a total of 8 bytes. Remember, the SNES have multi-bytes stored as little-endian, meaning
-[<kbd>0bbbbbgggggrrrrr</kbd>] is stored as [<kbd>gggrrrrr, 0bbbbbgg</kbd>] in memory.<br><br>
+[<kbd>%0bbbbbgggggrrrrr</kbd>] is stored as [<kbd>gggrrrrr, 0bbbbbgg</kbd>] in memory.<br><br>
 
 I've programmed a javascript below that makes it easier to find the RAM of a given color palette. Again, using <a href="https://github.com/devinacker/bsnes-plus/releases">Bsnes+</a>, this time going to
 debugger &rightarrow; S-PPU &rightarrow; Palette Viewer. Also again that the palette is loaded during processing the status bar, so a possible chance that the debugger won't show the status bar palette, so enable &ldquo;Auto Update&rdquo;

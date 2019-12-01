@@ -20,7 +20,7 @@
 <h1>GHB's notes</h1>
 This document illustrates the data format on how to edit SMB3 status bar RAM to be able to modify the status bar to add custom heads-up display (HUD) elements and
 other things. Most of the counters included in this package can be moved or disabled in <kbd>smb3_status_defines.asm</kbd>. So far, this covers on how to edit tile
-properties and palette. When patching <kbd>smb3_status.asm</kbd>, you should get something like this displayed on the Asar console window:
+number (, properties) and palette. When patching <kbd>smb3_status.asm</kbd>, you should get something like this displayed on the Asar console window:
 <table><tr><td><pre>RAM address ranges:
 l1y_end:             $7FB540 to $7FB541
 l1y_mirror:          $7FB542 to $7FB543
@@ -58,9 +58,13 @@ status_palette:      $7FB500 to $7FB53F
 
 status_OAM:          $EFC to $EFF
 </pre></td></tr></table>
-This is important, because if you wanted to edit tiles and other stuff, it can be difficult to locate what RAM to edit, not to mention, if you insert other patches,
-you should keep track of RAM addresses reserved by other patches (they are often referred to &ldquo;freeram&rdquo;) so you don't end up with two or more patches conflicting.<br><br>
-Most likely you would edit here is the tile data and palette data, therefore, I made a documentation of these for anyone new to this patch:
+This is important, because if you wanted to edit tiles and other stuff without that, it can be difficult to locate what RAM to edit, not to mention, if you insert other patches,
+you should keep track of RAM addresses reserved by other patches (they are often referred to as &ldquo;freeram&rdquo;) so you don't end up with two or more patches conflicting.
+You can select and copy text from the console window (you may have to &ldquo;mark&rdquo; (rightclick the top title bar of the window &rightarrow; Edit &rightarrow; Mark and/or Copy))
+and paste it in a <kbd>.txt</kbd> file for future references.<br><br>
+
+I've provided instructions below and included javascript code that generates a table to find what data is associated to another. If you have edited the defines to relocate the RAM address,
+make sure you enter the starting RAM address of the WHOLE thing, not any address in the sub-ranges marked with two dashes (&ldquo;--&rdquo;).
 <ul>
 <li><a href="GHB_ReadmeFiles/GHB_TileInfo.html" id="TileData">Tile and properties documentation</a></li>
 <li><a href="GHB_ReadmeFiles/GHB_PaletteInfo.html" id="PaletteData">Palette documentation</a></li>

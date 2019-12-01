@@ -30,10 +30,11 @@ Each 8x8 tile contains 2 bytes of information, the &ldquo;tile number&rdquo; (TT
 <ul>
 <li>Tile Number: Refers to what tile to use that is stored in the tile S-PPU. This can be seen by using YYCHR on <kbd>smb3_status_gfx.bin</kbd> and looking at the status bar at the bottom labeled
 &ldquo;Pattern&rdquo;:
-<img src="YYCHR_TileNumb.png"></li>
+<img src="YYCHR_TileNumb.png"><br>
+Obviously this ranges from <kbd>$00</kbd> to <kbd>$FF</kbd></li>
 <li>Tile Properties: Attributes of the tile. Stored in binary as follows:
 <ul>
-<li><kbd><u>Y</u>XPCCCTT</kbd>: Y-flip (<kbd>%0</kbd> = no,<kbd>%1</kbd> = yes)</li>
+<li><kbd><u>Y</u>XPCCCTT</kbd>: Y-flip (<kbd>%0</kbd> = no, <kbd>%1</kbd> = yes)</li>
 <li><kbd>Y<u>X</u>PCCCTT</kbd>: X-flip (<kbd>%0</kbd> = no, <kbd>%1</kbd> = yes)</li>
 <li><kbd>YX<u>P</u>CCCTT</kbd>: Priority (<kbd>%0</kbd> = behind things, <kbd>%1</kbd> = in front of things)</li>
 <li><kbd>YXP<u>CCC</u>TT</kbd>: Palette:

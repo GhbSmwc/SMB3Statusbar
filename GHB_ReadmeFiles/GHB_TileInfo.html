@@ -29,9 +29,9 @@ relative to each one of the 4 screens instead of the top-left corner of all 4 sc
 Each 8x8 tile contains 2 bytes of information, the &ldquo;tile number&rdquo; (TTTTTTTT) and the &ldquo;tile properties&rdquo;:
 <ul>
 <li>Tile Number: Refers to what tile to use that is stored in the tile S-PPU. This can be seen by using YYCHR on <kbd>smb3_status_gfx.bin</kbd> and looking at the status bar at the bottom labeled
-&ldquo;Pattern&rdquo;:
+&ldquo;Pattern&rdquo;:<br>
 <img src="YYCHR_TileNumb.png"><br>
-Obviously this ranges from <kbd>$00</kbd> to <kbd>$FF</kbd></li>
+Obviously this ranges from <kbd>$00</kbd> to <kbd>$FF</kbd> since all 8 bits are used.</li>
 <li>Tile Properties: Attributes of the tile. Stored in binary as follows:
 <ul>
 <li><kbd><u>Y</u>XPCCCTT</kbd>: Y-flip (<kbd>%0</kbd> = no, <kbd>%1</kbd> = yes)</li>

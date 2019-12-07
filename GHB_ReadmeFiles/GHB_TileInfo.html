@@ -137,7 +137,7 @@ YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>], unlike how t
 			var YPos = 0
 			Output += "<table>"
 			Output += "<tr><th>Tile number and coordinates</th><th>Tile number (TTTTTTTT)</th><th>Tile properties (YXPCCCTT)</th><th>&ldquo;smb3_status_map.bin&rdquo; tile number location offset</th><th>&ldquo;smb3_status_map.bin&rdquo; tile properties location offset</th></tr>"
-			while (TileCount < (32*4)) {
+			for (TileCount = 0; TileCount < (32*4); TileCount++) {
 				Xpos = (TileCount % 32)
 				YPos = Math.floor(TileCount/32)
 				if (Xpos == 0) {
@@ -150,7 +150,6 @@ YXPCCCTT (tile 0), TTTTTTTT (tile 1), YXPCCCTT (tile 1),...</kbd>], unlike how t
 				Output += "<td><kbd>" + (TileCount*2).toString(10) + "</kbd> (<kbd>$" + (TileCount*2).toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "<td><kbd>" + ((TileCount*2)+1).toString(10) + "</kbd> (<kbd>$" + ((TileCount*2)+1).toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "</tr>"
-				TileCount++
 			}
 			Output += "</table>"
 

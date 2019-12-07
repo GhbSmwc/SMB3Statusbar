@@ -82,7 +82,7 @@ from the first byte), make use of that.<br><br>
 			var IndexCount = 0
 			Output += "<table>"
 			Output += "<tr><th>What palette group</th><th>Index</th><th>Palette RAM</th><th>&ldquo;smb3_status_pal.bin&rdquo; Location offset</th></tr>"
-			while (IndexCount < 32) {
+			for (IndexCount = 0; IndexCount < 32; IndexCount++) {
 				Output += "<tr>"
 				if ((IndexCount % 4) == 0) {
 					Output += "<td rowspan='4'>Palette " + (Math.floor(IndexCount/4)).toString(10) + "</td>"
@@ -91,7 +91,6 @@ from the first byte), make use of that.<br><br>
 				Output += "<td><kbd>$" + (PaletteAddress+(IndexCount*2)).toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+(IndexCount*2)+1).toString(16).toUpperCase() +"</kbd></td>"
 				Output += "<td><kbd>" + (IndexCount*2).toString(10) + "</kbd> to <kbd>" + ((IndexCount*2)+1).toString(10) + "</kbd> (<kbd>$" + (IndexCount*2).toString(16).toUpperCase() + "</kbd> to <kbd>$" + ((IndexCount*2)+1).toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "</tr>"
-				IndexCount++
 			}
 			
 			Output += "</table>"

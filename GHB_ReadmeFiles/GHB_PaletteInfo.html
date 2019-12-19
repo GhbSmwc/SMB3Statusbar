@@ -88,7 +88,7 @@ from the first byte), make use of that.<br><br>
 					Output += "<td rowspan='4'>Palette " + (Math.floor(IndexCount/4)).toString(10) + "</td>"
 				}
 				Output += "<td>Index: <kbd>" + IndexCount.toString(10) + "</kbd> (<kbd>$" + IndexCount.toString(16).toUpperCase() + "</kbd>)</td>"
-				Output += "<td><kbd>$" + (PaletteAddress+(IndexCount*2)).toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+(IndexCount*2)+1).toString(16).toUpperCase() +"</kbd></td>"
+				Output += "<td><kbd>$" + (PaletteAddress+(IndexCount*2)).toString(16).toUpperCase() + "</kbd> to <kbd>$" + (PaletteAddress+(IndexCount*2)+1).toString(16).toUpperCase() +"</kbd> (<kbd>!status_palette+$" + (IndexCount*2).toString(16).toUpperCase() + "</kbd> to <kbd>!status_palette+$" + ((IndexCount*2)+1).toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "<td><kbd>" + (IndexCount*2).toString(10) + "</kbd> to <kbd>" + ((IndexCount*2)+1).toString(10) + "</kbd> (<kbd>$" + (IndexCount*2).toString(16).toUpperCase() + "</kbd> to <kbd>$" + ((IndexCount*2)+1).toString(16).toUpperCase() + "</kbd>)</td>"
 				Output += "</tr>"
 			}
